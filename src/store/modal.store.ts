@@ -1,11 +1,6 @@
 import { StateCreator } from "zustand";
 import { ModalType, ModalDataMap } from "../providers/constants";
 
-export interface ModalConfig {
-  heading?: string;
-  subheading?: string;
-}
-
 export type ModalStore = {
   isOpen: boolean;
   typeContent: ModalType | null;
@@ -15,8 +10,7 @@ export type ModalStore = {
   toggleModal: () => void;
   openModal: <T extends ModalType>(
     type: T,
-    data: ModalDataMap[T],
-    config?: ModalConfig
+    data: ModalDataMap[T]
   ) => void;
   closeModal: () => void;
 };
@@ -28,20 +22,16 @@ export const modalStore: StateCreator<ModalStore> = (set) => ({
   heading: "Modal",
   subheading: "",
   toggleModal: () => set((state) => ({ isOpen: !state.isOpen })),
-  openModal: (type, data, config) =>
+  openModal: (type, data) =>
     set({
       isOpen: true,
       typeContent: type,
-      modalData: data,
-      heading: config?.heading ?? "Modal",
-      subheading: config?.subheading ?? "",
+      modalData: data
     }),
   closeModal: () =>
     set({
       isOpen: false,
       typeContent: null,
-      modalData: null,
-      heading: "Modal",
-      subheading: "",
+      modalData: null
     }),
 });

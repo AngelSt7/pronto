@@ -9,8 +9,6 @@ export default function GenericModal() {
   const isOpen = mainStore((store) => store.isOpen);
   const typeContent = mainStore((store) => store.typeContent);
   const modalData = mainStore((store) => store.modalData);
-  const heading = mainStore((store) => store.heading);
-  const subheading = mainStore((store) => store.subheading);
   const toggleModal = mainStore((store) => store.toggleModal);
 
   const RenderComponent = typeContent ? CHILDRENS_COMPONENTS[typeContent] : null;
@@ -27,13 +25,8 @@ export default function GenericModal() {
                   <Envelope className="size-5" />
                 </Modal.Icon>
                 <Modal.Heading className="text-3xl font-bold text-zinc-900 select-none">
-                  {heading}
+                  Aceptar tarea
                 </Modal.Heading>
-                {subheading && (
-                  <p className="mt-1.5 text-sm leading-5 text-muted">
-                    {subheading}
-                  </p>
-                )}
               </Modal.Header>
               
               <Modal.Body className="p-6">

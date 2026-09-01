@@ -3,8 +3,8 @@
 import { FieldError, Input, Label, Surface, TextField } from "@heroui/react";
 import Button from "./Button";
 import { useState, useId, FormEvent } from "react";
-import { ProntoService } from "@/src/services/Pronto.service";
 import { AuthProntoWebInterface } from "@/src/interfaces/auth.interface";
+import { loginProntoWebServer } from "@/src/server/getTasks.server";
 
 export default function LoginProntoWeb() {
   const formId = useId();
@@ -12,7 +12,7 @@ export default function LoginProntoWeb() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const response = await ProntoService.loginProntoWeb(formLogin);
+    const response = await loginProntoWebServer(formLogin);
     console.log(response.data);
   };
 

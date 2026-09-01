@@ -3,7 +3,7 @@ import { authUserProntoWebSchema } from "../schemas/auth.schema";
 import { setCookies } from "../security/cookies";
 import { GetTaskToProntoInterface } from "../interfaces/pronto.interface";
 import { AssignmentInfoSchema, GetTasksToProntoSchema, ListAssingmentInfoSchema } from "../schemas/pronto.schema";
-import { FormLoginInterface, UserInterface } from "../interfaces/user.interface";
+import { AuthProntoInterface, UserInterface } from "../interfaces/user.interface";
 import { AuthProntoWebInterface } from "../interfaces/auth.interface";
 
 export class ProntoService {
@@ -14,22 +14,21 @@ export class ProntoService {
         if (!match.success) {
             throw new Error("Login failed");
         }
-        await setCookies([
-            { name: "user", value: JSON.stringify(response.data) },
-            { name: "token", value: response.data.token }
-        ])
+        // await setCookies([
+        //     { name: "user", value: JSON.stringify(response.data) },
+        //     { name: "token", value: response.data.token }
+        // ])
         return response.data;
     }
 
-
-    static login = async (body: FormLoginInterface): Promise<UserInterface> => {
+    static loginPronto = async (body: AuthProntoInterface): Promise<UserInterface> => {
         const buildBody = { ...body, deviceID: "c6c8f62f-8703-455b-b98a-7e69be2d7dc1" };
         const responseAxi = await apiPronto.post("/login", buildBody);
         const match = authUserProntoWebSchema.safeParse(responseAxi.data);
         if (!match.success) {
             throw new Error("Login failed");
         }
-        return responseAxi.data;
+        return match.data;
     }
 
     static getTasks = async (token: string): Promise<GetTaskToProntoInterface[]> => {

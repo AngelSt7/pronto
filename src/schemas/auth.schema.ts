@@ -1,5 +1,10 @@
 import { z } from "zod";
 
+const authProntoSchema = z.object({
+    userName: z.string(),
+    password: z.string()
+})
+
 const authProntoWebSchema = z.object({
     username: z.string(),
     password: z.string()
@@ -13,4 +18,4 @@ const authUserProntoWebSchema = z.object({
     token: z.string()
 })
 
-export { authProntoWebSchema, authUserProntoWebSchema }
+export { authProntoWebSchema, authUserProntoWebSchema, authProntoSchema }

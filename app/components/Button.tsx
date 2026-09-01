@@ -6,9 +6,10 @@ export interface ButtonProps {
   className?: string;
   size?: "sm" | "md" | "lg";
   onClick?: () => void;
+  icon?: React.ReactNode;
 }
 
-export default function Button({ type = "button", text, className, size = "md", onClick = (): void => { } }: ButtonProps) {
+export default function Button({ type = "button", text, className, size = "md", onClick = (): void => { }, icon }: ButtonProps) {
   return (
     <ButtonHero
       type={type}
@@ -16,6 +17,7 @@ export default function Button({ type = "button", text, className, size = "md", 
       size={size}
       onClick={onClick}
     >
+      {icon}
       {text}
     </ButtonHero>
   )

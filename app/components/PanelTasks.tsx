@@ -37,11 +37,7 @@ export default function PanelTasks({ token, data, schedules }: { token: string; 
         const response = await getDetailsTaskServer(Number(loadingTaskId), token);
         openModal(
           "accept_tasks",
-          { schedules, data: response.data.installationTask_GetAssignmentsInfo, task },
-          {
-            heading: `Aceptar tarea: ${task.customerCode}`,
-            subheading: `${task.address.ubigeo.department}, ${task.address.street}`,
-          }
+          { schedules, data: response.data.installationTask_GetAssignmentsInfo, task }
         );
       } catch (error) {
         console.error("Error al cargar la tarea:", error);
