@@ -17,7 +17,6 @@ export default function TabLoginTech({ data }: TabLoginTechProps) {
       const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const response = await loginProntoWebServer(formLogin);
-        console.log(response.data);
       };
     const [selectedTechnician, setSelectedTechnician] = useState<AssignmentInfo | null>(null);
     const canConfirm = !!selectedTechnician;

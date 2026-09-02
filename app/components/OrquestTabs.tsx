@@ -7,12 +7,11 @@ export type Tab = "login" | "aceptTask";
 export default async function OrquestTabs({ token }: { token: string }) {
     const data = await getTasksServer(token);
     const schedules = dynamicSchedules();
-    console.log(data);
     // const [user, setUser] = useState<User | null>(null);
 
     return (
         <>
-            <PanelTasks schedules={schedules} data={data.data.data.maintenanceManager_FindTasks}  token={token} />
+            <PanelTasks schedules={schedules} data={data}  token={token} />
         </>
     )
 }

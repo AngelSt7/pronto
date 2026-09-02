@@ -23,13 +23,7 @@ function getInitials(name: string) {
 
 export default function StepLogin({ data }: StepLoginProps) {
     const [typeLogin, setTypeLogin] = useState<"login" | "autologin">("autologin");
-    const [session, setSession] = useState<UserInterface | null>({
-        id: 1,
-        name: "Juan Perez",
-        type: 1,
-        login: "juan.perez",
-        token: "eyJhbGci"
-    });
+    const [session, setSession] = useState<UserInterface | null>(null);
 
     if (session) {
         return (

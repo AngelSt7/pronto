@@ -14,10 +14,7 @@ export class ProntoService {
         if (!match.success) {
             throw new Error("Login failed");
         }
-        // await setCookies([
-        //     { name: "user", value: JSON.stringify(response.data) },
-        //     { name: "token", value: response.data.token }
-        // ])
+
         return response.data;
     }
 
@@ -48,7 +45,7 @@ export class ProntoService {
     }
 
     static getDetailsTask = async (id: number, token: string) => {
-        const response = await apiPronto.post("query", this.getQueryToFindAssignments(id), {
+        const response = await apiPronto.post("/query", this.getQueryToFindAssignments(id), {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
@@ -56,7 +53,7 @@ export class ProntoService {
         const breakpoint = response.data.data.installationTask_GetAssignmentsInfo;
         const match = ListAssingmentInfoSchema.safeParse(breakpoint);
         if (!match.success) {
-            throw new Error("Get details task failed");
+            // console.log(JSON.stringify(match.error.format(), null, 2));
         }
         return match.data;
     }   
@@ -113,7 +110,7 @@ export class ProntoService {
                 query: {
                     dateTimeFrom,
                     dateTimeTo,
-                    status: ["provider-confirmation"]
+                    status: ["complete","provider-confirmation"]
                 }
             },
             query: `mutation findTaskInstallationTask($query: taskInstallationTaskQueryInput!) {

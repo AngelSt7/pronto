@@ -13,7 +13,6 @@ export default function LoginProntoWeb() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const response = await loginProntoWebServer(formLogin);
-    console.log(response.data);
   };
 
   return (

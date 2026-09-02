@@ -9,6 +9,7 @@ import SpinnerCharge from "@/src/components/ui/SpinnerCharge";
 import { ScheduleType } from "@/src/interfaces/generic.interface";
 import { mainStore } from "@/src/store/main.store";
 import GenericModal from "@/src/providers/GenericModal";
+import { AssignmentInfo } from "@/src/schemas/pronto.schema";
 
 function formatTime(isoString: string): string {
   const date = new Date(isoString);
@@ -30,14 +31,13 @@ export default function PanelTasks({ token, data, schedules }: { token: string; 
   const [isPendingTasks, startTransitionTasks] = useTransition();
 
   const handleCardClick = (task: GetTaskToProntoInterface) => {
-    setLoadingTaskId(task.id);
 
     startTransitionTasks(async () => {
       try {
-        const response = await getDetailsTaskServer(Number(loadingTaskId), token);
-        openModal(
+        const response = await getDetailsTaskServer(Number(task.id), token);
+        openModal<"accept_tasks">(
           "accept_tasks",
-          { schedules, data: response.data.installationTask_GetAssignmentsInfo, task }
+          { schedules, data: response ?? [], task }
         );
       } catch (error) {
         console.error("Error al cargar la tarea:", error);
@@ -51,7 +51,7 @@ export default function PanelTasks({ token, data, schedules }: { token: string; 
     startTransition(async () => {
       await sleep(3000);
       const response = await getTasksServer(token);
-      setTasks(response.data.data.maintenanceManager_FindTasks.slice(0, 4));
+      setTasks(response.slice(0, 4));
     });
   }
 
